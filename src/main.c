@@ -11,6 +11,16 @@ typedef struct float2{
     float y;
 }float2;
 
+typedef struct line2D{
+    float2 p1;
+    float2 p2;
+}line2D;
+
+typedef struct line3D{
+    float3 p1;
+    float3 p2;
+}line3D;
+
 
 SDL_Renderer * initRenderer(SDL_Window *window){
     SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
@@ -23,6 +33,17 @@ SDL_Renderer * initRenderer(SDL_Window *window){
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     
     return renderer;
+}
+
+void drawLine(line2D line, SDL_Renderer *renderer){
+    // Draw a simple 2D line
+    SDL_RenderDrawLine(renderer, line.p1.x, line.p1.y, line.p2.x, line.p2.y);
+}
+
+void drawShape(line2D *shape,const int size, SDL_Renderer *renderer){
+    for(int i = 0; i < size; i++){
+        drawLine(shape[i], renderer);
+    }
 }
 
 int main(void) {
@@ -40,9 +61,19 @@ int main(void) {
 
     SDL_Renderer *renderer = initRenderer(window);
 
-    // Draw a simple 2D line
-    SDL_RenderDrawLine(renderer, 100, 100, 500, 400);
+    
+    const int size = 4;
+    const int offsetX = 100;
+    const int offsetY = 100;
+    line2D square[size] = {
+        {{offsetX + 100,offsetY+0},{offsetX +100,offsetY+100}},
+        {{offsetX +100,offsetY+100},{offsetX +0,offsetY+100}},
+        {{offsetX +0,offsetY+100},{offsetX +0,offsetY+0}},
+        {{offsetX +0,offsetY+0},{offsetX +100,offsetY+0}}
+    };
 
+    drawShape(square, size, renderer);
+    
     // Present to the screen
     SDL_RenderPresent(renderer);
 
