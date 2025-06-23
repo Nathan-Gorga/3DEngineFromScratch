@@ -10,6 +10,9 @@
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 600
 
+#define M_PI 3.14159265358979323846
+
+
 typedef struct float3{
     float x; 
     float y; 

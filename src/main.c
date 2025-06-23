@@ -2,7 +2,7 @@
 #include "renderer/renderer.h"
 #include "draw/draw.h"
 #include "shape/shape.h"
-
+#include "geometry/geometry.h"
 
 int main(void) {
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
@@ -19,33 +19,50 @@ int main(void) {
 
     SDL_Renderer *renderer = initRenderer(window);
 
-    shape2D * shape = circle(100);
-
-    float2 offset = {WINDOW_WIDTH/2, WINDOW_HEIGHT/2};
-    drawShape2D(shape->shape, shape->size, offset,renderer);
-
-    free(shape->shape);
-    free(shape);
     
-    // Present to the screen
-    SDL_RenderPresent(renderer);
+    const int scale = 50;
+    float2 point1 = {(WINDOW_WIDTH/2) - scale, (WINDOW_HEIGHT/2) - scale};
+    float2 point2 = {(WINDOW_WIDTH/2) + scale, (WINDOW_HEIGHT/2) + scale};
 
+    shape2D * Square = square(point1, point2);
 
+    
+    float2 offset = {0, 0};
+    
+    float angle = 2*M_PI/6;
+    // drawShape2D(Square, offset,renderer);
+
+    float2 origin = {WINDOW_WIDTH/2, WINDOW_HEIGHT/2};
+    // rotate2D(Square, origin, angle);
+    // drawShape2D(Square, offset,renderer);
+
+    // SDL_RenderPresent(renderer);
+        
     bool running = true;
     SDL_Event event;
+    
+    const float twoPi = 2 * M_PI;
+    int divisor = 1;
     while (running) {
         // Poll for events
         while (SDL_PollEvent(&event)) {
+            
             if (event.type == SDL_QUIT) {
                 running = false;
             }
-        }
+        }    
+        const float angle = twoPi / divisor;
 
-
+        rotate2D(Square, origin, angle);
+        drawShape2D(Square, offset,renderer);
+        SDL_RenderPresent(renderer);
+        divisor++;
         // Optionally add a small delay to limit CPU usage
-        SDL_Delay(16); // ~60 FPS
+        SDL_Delay(1000); // ~60 FPS
     }
-
+    
+    free(Square->shape);
+    free(Square);
 
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);

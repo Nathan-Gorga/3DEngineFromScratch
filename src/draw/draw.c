@@ -9,10 +9,10 @@ void drawLine2D(vertex2D line, float2 offset, SDL_Renderer *renderer){
 
 
 
-void drawShape2D(vertex2D *shape,const int size,float2 offset,  SDL_Renderer *renderer){
+void drawShape2D(shape2D *shape,float2 offset,  SDL_Renderer *renderer){
     
-    for(int i = 0; i < size; i++){
-        drawLine2D(shape[i], offset,renderer);
+    for(int i = 0; i < shape->size; i++){
+        drawLine2D(shape->shape[i], offset,renderer);
     }
 }
 

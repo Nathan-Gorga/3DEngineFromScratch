@@ -1,8 +1,7 @@
 #include "shape.h"
-#define M_PI 3.14159265358979323846
 
 
-shape2D * square(const int scale){
+shape2D * square(const float2 point1, const float2 point2){
     
     shape2D *temp = (shape2D*)malloc(sizeof(shape2D));
 
@@ -10,33 +9,38 @@ shape2D * square(const int scale){
 
     temp->size = 4;
 
+    
     // bottom vertex
-    temp->shape[0].p1.x = -scale;
-    temp->shape[0].p1.y = -scale;
-    temp->shape[0].p2.x = scale;
-    temp->shape[0].p2.y = -scale;
+    temp->shape[0].p1.x = point1.x;
+    temp->shape[0].p1.y = point1.y;
+    temp->shape[0].p2.x = point1.x;
+    temp->shape[0].p2.y = point2.y;
 
     // right vertex
-    temp->shape[1].p1.x = scale;
-    temp->shape[1].p1.y = -scale;
-    temp->shape[1].p2.x = scale;
-    temp->shape[1].p2.y = scale;
+    temp->shape[1].p1.x = point1.x;
+    temp->shape[1].p1.y = point2.y;
+    temp->shape[1].p2.x = point2.x;
+    temp->shape[1].p2.y = point2.y;
 
     // top vertex
-    temp->shape[2].p1.x = scale;
-    temp->shape[2].p1.y = scale;
-    temp->shape[2].p2.x = -scale;
-    temp->shape[2].p2.y = scale;
+    temp->shape[2].p1.x = point2.x;
+    temp->shape[2].p1.y = point2.y;
+    temp->shape[2].p2.x = point2.x;
+    temp->shape[2].p2.y = point1.y;
 
     // left vertex
-    temp->shape[3].p1.x = -scale;
-    temp->shape[3].p1.y = scale;
-    temp->shape[3].p2.x = -scale;
-    temp->shape[3].p2.y = -scale;
+    temp->shape[3].p1.x = point2.x;
+    temp->shape[3].p1.y = point1.y;
+    temp->shape[3].p2.x = point1.x;
+    temp->shape[3].p2.y = point1.y;
 
     return temp;
 
 }
+
+
+
+
 
 
 shape2D * circle(const int scale){
