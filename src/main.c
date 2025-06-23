@@ -1,22 +1,7 @@
 #include "definitions.h"
 #include "renderer/renderer.h"
 #include "draw/draw.h"
-
-
-
-void drawSquare(const int scale, SDL_Renderer *renderer){
-    const int p = scale/2;
-    line2D square[4] = {
-        {{-p,-p},{-p,p}},
-        {{-p,p},{p,p}},
-        {{p,p},{p,-p}},
-        {{p,-p},{-p,-p}},
-    };
-
-    drawShape2D(square, 4, renderer);
-}
-
-
+#include "shape/shape.h"
 
 
 int main(void) {
@@ -35,7 +20,15 @@ int main(void) {
     SDL_Renderer *renderer = initRenderer(window);
 
   
-    drawSquare(50, renderer);
+    shape2D * shape = square(100);
+
+    
+
+    float2 offset = {WINDOW_WIDTH/2, WINDOW_HEIGHT/2};
+    drawShape2D(shape->shape, shape->size, offset,renderer);
+
+    free(shape->shape);
+    free(shape);
     
     // Present to the screen
     SDL_RenderPresent(renderer);

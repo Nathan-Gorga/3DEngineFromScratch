@@ -20,16 +20,25 @@ typedef struct float2{
     float y;
 }float2;
 
-typedef struct line2D{
+typedef struct vertex2D{
     float2 p1;
     float2 p2;
-}line2D;
+}vertex2D;
 
-typedef struct line3D{
+typedef struct vertex3D{
     float3 p1;
     float3 p2;
-}line3D;
+}vertex3D;
 
+typedef struct shape2D{
+    vertex2D *shape;
+    int size;
+}shape2D;
+
+typedef struct shape3D{
+    vertex3D *shape;
+    int size;
+}shape3D;
 
 
 #endif

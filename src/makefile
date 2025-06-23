@@ -1,8 +1,8 @@
 CC = clang
 CFLAGS = -std=c99 -Wall -Wpedantic
 
-3DEngine : main.o renderer.o draw.o
-	$(CC) main.o renderer.o draw.o -lSDL2 -o 3DEngine
+3DEngine : main.o renderer.o draw.o shape.o
+	$(CC) main.o renderer.o draw.o shape.o -lSDL2 -o 3DEngine
 	make clean
 	./3DEngine
 
@@ -16,6 +16,9 @@ renderer.o : renderer/renderer.c
 
 draw.o : draw/draw.c
 	$(CC) $(CFLAGS) -c draw/draw.c -o draw.o
+
+shape.o : shape/shape.c
+	$(CC) $(CFLAGS) -c shape/shape.c -o shape.o
 
 clean:
 	rm -f *.o 
