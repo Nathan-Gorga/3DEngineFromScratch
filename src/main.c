@@ -19,10 +19,7 @@ int main(void) {
 
     SDL_Renderer *renderer = initRenderer(window);
 
-  
-    shape2D * shape = square(100);
-
-    
+    shape2D * shape = circle(100);
 
     float2 offset = {WINDOW_WIDTH/2, WINDOW_HEIGHT/2};
     drawShape2D(shape->shape, shape->size, offset,renderer);

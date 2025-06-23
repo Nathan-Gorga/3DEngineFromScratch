@@ -6,6 +6,9 @@ void drawLine2D(vertex2D line, float2 offset, SDL_Renderer *renderer){
     SDL_RenderDrawLine(renderer, line.p1.x + offset.x, line.p1.y + offset.y, line.p2.x + offset.x, line.p2.y + offset.y);
 }
 
+
+
+
 void drawShape2D(vertex2D *shape,const int size,float2 offset,  SDL_Renderer *renderer){
     
     for(int i = 0; i < size; i++){
