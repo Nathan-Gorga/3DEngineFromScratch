@@ -24,6 +24,8 @@ typedef struct float2{
     float y;
 }float2;
 
+
+
 typedef struct vertex2D{
     float2 p1;
     float2 p2;
@@ -34,6 +36,8 @@ typedef struct vertex3D{
     float3 p2;
 }vertex3D;
 
+
+
 typedef struct shape2D{
     vertex2D *shape;
     int size;
@@ -43,6 +47,7 @@ typedef struct shape3D{
     vertex3D *shape;
     int size;
 }shape3D;
+
 
 
 #endif
