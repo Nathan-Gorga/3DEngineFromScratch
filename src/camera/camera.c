@@ -10,7 +10,12 @@ camera *createCamera(void){
     temp->zfar = 100;
     temp->znear = 1;
 
+    temp->theta = 2 * M_PI / 3;
     return temp;
+}
+
+void projectionMatrix(){
+    
 }
 
 
