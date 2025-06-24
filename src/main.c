@@ -21,17 +21,13 @@ int main(void) {
 
     SDL_Renderer *renderer = initRenderer(window);
   
-    const int scale = 50;
-    float2 point1 = {(WINDOW_WIDTH/2) - scale, (WINDOW_HEIGHT/2) - scale};
-    float2 point2 = {(WINDOW_WIDTH/2) + scale, (WINDOW_HEIGHT/2) + scale};
-    
-    camera *camera = createCamera();
-    
-    
-    
+    mesh * cube = unitCube();
+    drawMesh(cube, renderer);
     
     SDL_RenderPresent(renderer);
     
+    free(cube->triangles);
+    free(cube);
     bool running = true;
     SDL_Event event;
 

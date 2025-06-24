@@ -2,6 +2,5 @@
 #define DRAW_H
 #include "../definitions.h"
 
-void drawShape2D(shape2D *shape,float2 offset, SDL_Renderer *renderer);
-
+void drawMesh(mesh *mesh, SDL_Renderer *renderer);
 #endif

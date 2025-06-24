@@ -1,65 +1,193 @@
 #include "shape.h"
 
 
-shape2D * square(const float2 point1, const float2 point2){
-    
-    shape2D *temp = (shape2D*)malloc(sizeof(shape2D));
-
-    temp->shape = (vertex2D*)malloc(4 * sizeof(vertex2D));
-
-    temp->size = 4;
-
-    
-    // bottom vertex
-    temp->shape[0].p1.x = point1.x;
-    temp->shape[0].p1.y = point1.y;
-    temp->shape[0].p2.x = point1.x;
-    temp->shape[0].p2.y = point2.y;
-
-    // right vertex
-    temp->shape[1].p1.x = point1.x;
-    temp->shape[1].p1.y = point2.y;
-    temp->shape[1].p2.x = point2.x;
-    temp->shape[1].p2.y = point2.y;
-
-    // top vertex
-    temp->shape[2].p1.x = point2.x;
-    temp->shape[2].p1.y = point2.y;
-    temp->shape[2].p2.x = point2.x;
-    temp->shape[2].p2.y = point1.y;
-
-    // left vertex
-    temp->shape[3].p1.x = point2.x;
-    temp->shape[3].p1.y = point1.y;
-    temp->shape[3].p2.x = point1.x;
-    temp->shape[3].p2.y = point1.y;
-
+mesh *initMesh(const int size){
+    mesh *temp = (mesh*)malloc(sizeof(mesh));
+    temp->triangles = (triangle*)malloc(sizeof(triangle) * size);
+    temp->size = size;
     return temp;
-
 }
 
 
+mesh* unitCube(void){
+    const float scale = 100;
+
+    mesh *temp = initMesh(12);
+
+    //SOUTH FACE
+    //triangle1
+    temp->triangles[0].p[0].x = 0;
+    temp->triangles[0].p[0].y = 0;
+    temp->triangles[0].p[0].z = 0;
+
+    temp->triangles[0].p[1].x = 0;
+    temp->triangles[0].p[1].y = scale;
+    temp->triangles[0].p[1].z = 0;
+
+    temp->triangles[0].p[2].x = scale;
+    temp->triangles[0].p[2].y = scale;
+    temp->triangles[0].p[2].z = 0;
 
 
-
-
-shape2D * circle(const int scale){
+    //triangle2
+    temp->triangles[1].p[0].x = 0;
+    temp->triangles[1].p[0].y = 0;
+    temp->triangles[1].p[0].z = 0;
     
-    shape2D *temp = (shape2D*)malloc(sizeof(shape2D));
+    temp->triangles[1].p[1].x = scale;
+    temp->triangles[1].p[1].y = scale;
+    temp->triangles[1].p[1].z = 0;
     
-    temp->size = 32;
-    temp->shape = (vertex2D*)malloc(temp->size * sizeof(vertex2D));
+    temp->triangles[1].p[2].x = scale;
+    temp->triangles[1].p[2].y = 0;
+    temp->triangles[1].p[2].z = 0;
+    
+    
+    //EAST FACE
 
-    const float theta = 2 * M_PI / temp->size;
-    for (int i = 0; i < temp->size; i++) {
-        temp->shape[i].p1.x = scale * cos(theta * i);
-        temp->shape[i].p1.y = scale * sin(theta * i);
-        temp->shape[i].p2.x = scale * cos(theta * (i + 1));
-        temp->shape[i].p2.y = scale * sin(theta * (i + 1));
-    }
+    //triangle 3
+    temp->triangles[2].p[0].x = scale;
+    temp->triangles[2].p[0].y = 0;
+    temp->triangles[2].p[0].z = 0;
+
+    temp->triangles[2].p[1].x = scale;
+    temp->triangles[2].p[1].y = scale;
+    temp->triangles[2].p[1].z = 0;
+
+    temp->triangles[2].p[2].x = scale;
+    temp->triangles[2].p[2].y = scale;
+    temp->triangles[2].p[2].z = scale;
+
+
+    //triangle 4
+    temp->triangles[3].p[0].x = scale;
+    temp->triangles[3].p[0].y = 0;
+    temp->triangles[3].p[0].z = 0;
+
+    temp->triangles[3].p[1].x = scale;
+    temp->triangles[3].p[1].y = scale;
+    temp->triangles[3].p[1].z = scale;
+
+    temp->triangles[3].p[2].x = scale;
+    temp->triangles[3].p[2].y = 0;
+    temp->triangles[3].p[2].z = scale;
+    
+    //NORTH FACE
+    //triangle 5
+    temp->triangles[4].p[0].x = scale;
+    temp->triangles[4].p[0].y = 0;
+    temp->triangles[4].p[0].z = scale;
+    
+    temp->triangles[4].p[1].x = scale;
+    temp->triangles[4].p[1].y = scale;
+    temp->triangles[4].p[1].z = scale;
+
+    temp->triangles[4].p[2].x = 0;
+    temp->triangles[4].p[2].y = scale;
+    temp->triangles[4].p[2].z = scale;
+
+
+    //triangle 6
+    temp->triangles[5].p[0].x = scale;
+    temp->triangles[5].p[0].y = 0;
+    temp->triangles[5].p[0].z = scale;
+    
+    temp->triangles[5].p[1].x = 0;
+    temp->triangles[5].p[1].y = scale;
+    temp->triangles[5].p[1].z = scale;
+    
+    temp->triangles[5].p[2].x = 0;
+    temp->triangles[5].p[2].y = 0;
+    temp->triangles[5].p[2].z = scale;
+    
+    
+    
+    //WEST FACE
+    //triangle 7
+    temp->triangles[6].p[0].x = 0;
+    temp->triangles[6].p[0].y = 0;
+    temp->triangles[6].p[0].z = scale;
+    
+    temp->triangles[6].p[1].x = 0;
+    temp->triangles[6].p[1].y = scale;
+    temp->triangles[6].p[1].z = scale;
+
+    temp->triangles[6].p[2].z = 0;
+    temp->triangles[6].p[2].x = scale;
+    temp->triangles[6].p[2].y = 0;
+
+
+    //triangle 8
+    temp->triangles[7].p[0].x = 0;
+    temp->triangles[7].p[0].y = 0;
+    temp->triangles[7].p[0].z = scale;
+    
+    temp->triangles[7].p[1].z = 0;
+    temp->triangles[7].p[1].x = scale;
+    temp->triangles[7].p[1].y = 0;
+    
+    temp->triangles[7].p[2].x = 0;
+    temp->triangles[7].p[2].y = 0;
+    temp->triangles[7].p[2].z = 0;
+
+
+    
+    //BOTTOM FACE
+    //triangle 9
+    temp->triangles[8].p[0].x = 0;
+    temp->triangles[8].p[0].y = 0;
+    temp->triangles[8].p[0].z = scale;
+    
+    temp->triangles[8].p[1].z = 0;
+    temp->triangles[8].p[1].x = 0;
+    temp->triangles[8].p[1].y = 0;
+
+    temp->triangles[8].p[2].x = scale;
+    temp->triangles[8].p[2].y = 0;
+    temp->triangles[8].p[2].z = 0;
+
+    //triangle 10
+    temp->triangles[9].p[0].x = 0;
+    temp->triangles[9].p[0].y = 0;
+    temp->triangles[9].p[0].z = scale;
+    
+    temp->triangles[9].p[1].x = scale;
+    temp->triangles[9].p[1].y = 0;
+    temp->triangles[9].p[1].z = 0;
+
+    temp->triangles[9].p[2].z = scale;
+    temp->triangles[9].p[2].x = 0;
+    temp->triangles[9].p[2].y = scale;
+
+
+    //TOP FACE
+    //triangle 11
+    temp->triangles[10].p[0].x = 0;
+    temp->triangles[10].p[0].y = scale;
+    temp->triangles[10].p[0].z = 0;
+    
+    temp->triangles[10].p[1].x = 0;
+    temp->triangles[10].p[1].y = scale;
+    temp->triangles[10].p[1].z = scale;
+
+    temp->triangles[10].p[2].z = scale;
+    temp->triangles[10].p[2].x = scale;
+    temp->triangles[10].p[2].y = scale;
+
+    //triangle 12
+    temp->triangles[11].p[0].x = 0;
+    temp->triangles[11].p[0].y = scale;
+    temp->triangles[11].p[0].z = 0;
+    
+    temp->triangles[11].p[1].x = scale;
+    temp->triangles[11].p[1].y = scale;
+    temp->triangles[11].p[1].z = scale;
+
+    temp->triangles[11].p[2].z = scale;
+    temp->triangles[11].p[2].x = scale;
+    temp->triangles[11].p[2].y = 0;
 
     return temp;
-
 }
 
 
