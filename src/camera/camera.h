@@ -3,7 +3,11 @@
 
 #include "../definitions.h"
 
-typedef float3 camera;
+typedef struct camera{
+    float3 position;
+    int zfar;
+    int znear;
+}camera;
 
 camera *createCamera(void);
 

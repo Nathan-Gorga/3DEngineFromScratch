@@ -2,9 +2,14 @@
 
 camera *createCamera(void){
     camera *temp = (camera*)malloc(sizeof(camera));
-    temp->x = 0;
-    temp->y = 0;
-    temp->z = 0;
+
+    temp->position.x = 0;
+    temp->position.y = 0;
+    temp->position.z = 0;
+    
+    temp->zfar = 100;
+    temp->znear = 1;
+
     return temp;
 }
 
