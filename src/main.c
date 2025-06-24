@@ -21,13 +21,28 @@ int main(void) {
 
     SDL_Renderer *renderer = initRenderer(window);
   
+
+
+    camera * cam = createCamera();
+
+    double matrix[4][4];
+
+    projectionMatrix(cam, matrix);
     mesh * cube = unitCube();
+
+
+    // multMeshAndMatrix(cube, matrix);
+
+
     drawMesh(cube, renderer);
     
     SDL_RenderPresent(renderer);
     
     free(cube->triangles);
     free(cube);
+
+    free(cam);
+
     bool running = true;
     SDL_Event event;
 

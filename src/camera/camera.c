@@ -7,29 +7,32 @@ camera *createCamera(void){
     temp->position.y = 0;
     temp->position.z = 0;
     
-    temp->zfar = 100;
-    temp->znear = 1;
+    temp->zfar = Z_FAR;
+    temp->znear = Z_NEAR;
 
     temp->theta = 2 * M_PI / 3;
     return temp;
 }
 
 
-void multMatrixVector(const float3 *input, float3 *output, const double matrix[4][4]){
-    output->x = matrix[0][0] * input->x + matrix[1][0] * input->y + matrix[2][0] * input->z + matrix[3][0];
-    output->y = matrix[0][1] * input->x + matrix[1][1] * input->y + matrix[2][1] * input->z + matrix[3][1];
-    output->z = matrix[0][2] * input->x + matrix[1][2] * input->y + matrix[2][2] * input->z + matrix[3][2];
+void multMatrixVector(float3 *vec, const double matrix[4][4]){
 
-    float w = matrix[0][3] * input->x + matrix[1][3] * input->y + matrix[2][3] * input->z + matrix[3][3];
+    const float3 *temp = vec;
+
+    vec->x = matrix[0][0] * temp->x + matrix[1][0] * temp->y + matrix[2][0] * temp->z + matrix[3][0];
+    vec->y = matrix[0][1] * temp->x + matrix[1][1] * temp->y + matrix[2][1] * temp->z + matrix[3][1];
+    vec->z = matrix[0][2] * temp->x + matrix[1][2] * temp->y + matrix[2][2] * temp->z + matrix[3][2];
+
+    float w = matrix[0][3] * temp->x + matrix[1][3] * temp->y + matrix[2][3] * temp->z + matrix[3][3];
 
     if(w != 0){
-        output->x /= w;
-        output->y /= w;
-        output->z /= w;
+        vec->x /= w;
+        vec->y /= w;
+        vec->z /= w;
     }
 }
 
-void projectionMatrix(camera *camera, double projectionMatrix[4][4]){
+void projectionMatrix(const camera *camera, double projectionMatrix[4][4]){
     
     for(int i = 0; i < 4; i++){
         for(int j = 0; j < 4; j++){
@@ -38,7 +41,7 @@ void projectionMatrix(camera *camera, double projectionMatrix[4][4]){
     }
 
     const double aspectRatio = ASPECT_RATIO;
-    const double f = 1/(tan(camera->theta/2));
+    const double f = 1/(tan(camera->theta/2));// FIXME: change divide by 2to mutliply by 0.5
 
     projectionMatrix[0][0] = aspectRatio * f;
     projectionMatrix[1][1] = f;
@@ -48,6 +51,24 @@ void projectionMatrix(camera *camera, double projectionMatrix[4][4]){
 
 }
 
+
+
+void multTriangleAndMatrix(triangle * triangle, const double matrix[4][4]){
+    for(int i = 0; i < 3; i++){
+        multMatrixVector(&triangle->p[i], matrix);
+    }
+}
+
+
+void multMeshAndMatrix(mesh * mesh, const double matrix[4][4]){
+    for(int i = 0; i < mesh->size; i++){
+        // mesh->triangles->p[0].z += Z_NEAR;
+        // mesh->triangles->p[1].z += Z_NEAR;
+        // mesh->triangles->p[2].z += Z_NEAR;
+
+        multTriangleAndMatrix(&mesh->triangles[i], matrix);
+    }
+}
 
 
 
