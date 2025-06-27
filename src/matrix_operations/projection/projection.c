@@ -23,20 +23,6 @@ void createProjectionMatrix(const camera * cam, float M[4][4]){
 }
 
 
-static inline void projectVector(vec3 * vec, const float projectionMatrix[4][4]){
-    multMatrixVector(vec, projectionMatrix);
-}
 
-static void projectTriangle(triangle * tri, const float projectionMatrix[4][4]){
-    projectVector(&tri->p[0], projectionMatrix);
-    projectVector(&tri->p[1], projectionMatrix);
-    projectVector(&tri->p[2], projectionMatrix);
-}
-
-void projectMesh(const float projectionMatrix[4][4], mesh * mesh){
-    for(int i = 0; i < mesh->size; i++){
-        projectTriangle(&mesh->tris[i], projectionMatrix);
-    }
-}
 
 

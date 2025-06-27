@@ -24,12 +24,14 @@ int main(void){
     }
 
     float projectionMatrix[4][4];
+    float rotationMatrix[4][4];
     createProjectionMatrix(cam, projectionMatrix);
 
     //offset into screen
-    translateMesh((vec3){0, 1.0f, 3.0f}, Cube);
+    translateMesh((vec3){0, 0.0f, 3.0f}, Cube);
 
-    projectMesh(projectionMatrix, Cube);
+
+    multMeshMatrix(projectionMatrix, Cube);
 
     //scale into view
     translateMesh((vec3){1.0f, 1.0f, 0.0f}, Cube);

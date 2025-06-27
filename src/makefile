@@ -2,8 +2,8 @@
 CC = clang
 CFLAGS = -std=c99 -Wall -Wpedantic
 
-3DEngine : main.o shapes.o draw.o init.o matrix_math.o matrix_projection.o matrix_translation.o camera.o
-	$(CC) main.o shapes.o draw.o init.o matrix_math.o matrix_projection.o matrix_translation.o camera.o -lm -lSDL2 -o 3DEngine
+3DEngine : main.o shapes.o draw.o init.o matrix_math.o matrix_projection.o matrix_translation.o camera.o matrix_rotation.o
+	$(CC) main.o shapes.o draw.o init.o matrix_math.o matrix_projection.o matrix_translation.o camera.o matrix_rotation.o -lm -lSDL2 -o 3DEngine
 	make clean
 	./3DEngine
 
@@ -33,6 +33,9 @@ matrix_projection.o : matrix_operations/projection/projection.c
 
 matrix_translation.o : matrix_operations/translation/translation.c
 	$(CC) $(CFLAGS) -c matrix_operations/translation/translation.c -o matrix_translation.o
+
+matrix_rotation.o : matrix_operations/rotation/rotation.c
+	$(CC) $(CFLAGS) -c matrix_operations/rotation/rotation.c -o matrix_rotation.o
 
 
 camera.o : camera/camera.c
