@@ -1,32 +1,42 @@
+
 CC = clang
 CFLAGS = -std=c99 -Wall -Wpedantic
 
-3DEngine : main.o renderer.o draw.o shape.o geometry.o camera.o
-	$(CC) main.o renderer.o draw.o shape.o geometry.o camera.o -lm -lSDL2 -o 3DEngine
+3DEngine : main.o shapes.o draw.o init.o matrix_math.o matrix_projection.o matrix_translation.o camera.o
+	$(CC) main.o shapes.o draw.o init.o matrix_math.o matrix_projection.o matrix_translation.o camera.o -lm -lSDL2 -o 3DEngine
 	make clean
 	./3DEngine
 
 
-main.o : main.c
-	$(CC) $(CFLAGS) -c main.c -o main.o 
+main.o : 3DEngine.c
+	$(CC) $(CFLAGS) -c 3DEngine.c -o main.o 
+
+shapes.o : shapes/basic_shapes/basic_shapes.c
+	$(CC) $(CFLAGS) -c shapes/basic_shapes/basic_shapes.c -o shapes.o
 
 
-renderer.o : renderer/renderer.c
-	$(CC) $(CFLAGS) -c renderer/renderer.c -o renderer.o
 
-draw.o : draw/draw.c
-	$(CC) $(CFLAGS) -c draw/draw.c -o draw.o
+draw.o : SDL_interface/draw/draw.c 
+	$(CC) $(CFLAGS) -c SDL_interface/draw/draw.c -o draw.o
 
-shape.o : shape/shape.c
-	$(CC) $(CFLAGS) -c shape/shape.c -o shape.o
+init.o : SDL_interface/init/init.c
+	$(CC) $(CFLAGS) -c SDL_interface/init/init.c -o init.o
 
-geometry.o : geometry/geometry.c
-	$(CC) $(CFLAGS) -c geometry/geometry.c -o geometry.o
+
+
+matrix_math.o : matrix_operations/math/math.c
+	$(CC) $(CFLAGS) -c matrix_operations/math/math.c -o matrix_math.o
+
+matrix_projection.o : matrix_operations/projection/projection.c
+	$(CC) $(CFLAGS) -c matrix_operations/projection/projection.c -o matrix_projection.o
+
+
+matrix_translation.o : matrix_operations/translation/translation.c
+	$(CC) $(CFLAGS) -c matrix_operations/translation/translation.c -o matrix_translation.o
 
 
 camera.o : camera/camera.c
 	$(CC) $(CFLAGS) -c camera/camera.c -o camera.o
-
 
 clean:
 	rm -f *.o 

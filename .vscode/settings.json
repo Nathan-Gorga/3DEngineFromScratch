@@ -1,6 +1,8 @@
 {
-    "files.associations": {
-        "definitions.h": "c",
-        "stdbool.h": "c"
-    }
+  "files.associations": {
+    "definitions.h": "c",
+    "stdbool.h": "c",
+    "camera.h": "c",
+    "matrix_operations.h": "c"
+  }
 }
