@@ -56,7 +56,7 @@ mesh * tetrahedron(void){
 
     mesh * meshTetrahedron = (mesh*)malloc(sizeof(mesh));
 
-    if(meshTetrahedron != NULL) 
+    if(meshTetrahedron == NULL) 
         return NULL;
 
     meshTetrahedron->size = 4;
@@ -69,13 +69,13 @@ mesh * tetrahedron(void){
     } 
 
     triangle temp[4] = {
-        { 0.0f, 0.0f, 0.0f,    0.5f, 1.0f, 0.5f,    1.0f, 1.0f, 0.0f },
+        { (vec3){0.0f, 0.0f, 0.0f},    (vec3){1.0f, 0.0f, 0.0f},    (vec3){0.5f, 0.0f, 1.0f} },
         
-        { 1.0f, 1.0f, 0.0f,    0.5f, 1.0f, 0.5f,    0.5f, 0.0f, 1.0f },
+        { (vec3){0.0f, 0.0f, 0.0f},    (vec3){0.5f, 1.0f, 0.5f},    (vec3){1.0f, 0.0f, 0.0f} },
         
-        { 0.5f, 0.0f, 1.0f,    0.5f, 1.0f, 0.5f,    0.0f, 0.0f, 0.0f },
+        { (vec3){1.0f, 0.0f, 0.0f},    (vec3){0.5f, 1.0f, 0.5f},    (vec3){0.5f, 0.0f, 1.0f} },
 
-        { 0.0f, 0.0f, 0.0f,    1.0f, 1.0f, 0.0f,    0.5f, 0.0f, 1.0f },        
+        { (vec3){0.5f, 0.0f, 1.0f},    (vec3){0.5f, 1.0f, 0.5f},    (vec3){0.0f, 0.0f, 0.0f} },        
     };
 
     memcpy(meshTetrahedron->tris, temp, sizeof(triangle) * 4);

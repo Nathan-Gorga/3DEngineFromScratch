@@ -16,8 +16,6 @@ int main(void){
         return 1;
     }
 
-    
-
     camera * cam = initCamera();
     if(cam == NULL){
         printf("cam\n");
@@ -29,7 +27,7 @@ int main(void){
     createProjectionMatrix(cam, projectionMatrix);
 
     //offset into screen
-    translateMesh((vec3){0, 0, 3.0f}, Cube);
+    translateMesh((vec3){0, 1.0f, 3.0f}, Cube);
 
     projectMesh(projectionMatrix, Cube);
 

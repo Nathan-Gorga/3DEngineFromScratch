@@ -3,6 +3,8 @@
     "definitions.h": "c",
     "stdbool.h": "c",
     "camera.h": "c",
-    "matrix_operations.h": "c"
+    "matrix_operations.h": "c",
+    "shapes.h": "c",
+    "global.h": "c"
   }
 }

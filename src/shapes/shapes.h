@@ -6,4 +6,6 @@
 //BASIC SHAPES
 mesh * cube(void);
 
+mesh * tetrahedron(void);
+
 #endif
