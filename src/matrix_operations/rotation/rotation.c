@@ -16,7 +16,7 @@ void createRotationMatrix(const vec3 rotationVector, float M[4][4]){
     float Y[4][4] = {0};
     float Z[4][4] = {0};
 
-    if(x == 0){
+    if(x != 0.0f){
         
         const float cosX = cos(x);
         const float sinX = sin(x);
@@ -35,7 +35,8 @@ void createRotationMatrix(const vec3 rotationVector, float M[4][4]){
     }
 
 
-    if(y == 0){
+
+    if(y != 0.0f){
         
         const float cosY = cos(y);
         const float sinY = sin(y);
@@ -53,7 +54,8 @@ void createRotationMatrix(const vec3 rotationVector, float M[4][4]){
         }  
     }
 
-    if(z == 0){
+
+    if(z != 0.0f){
 
         const float cosZ = cos(z);
         const float sinZ = sin(z);
@@ -72,8 +74,16 @@ void createRotationMatrix(const vec3 rotationVector, float M[4][4]){
 
     // the order of multiplication MUST be Z * Y * X
 
-    multMatixMatrix(Z, Y, M);
-    multMatixMatrix(M, X, M);
+    multMatrixMatrix(Z, Y, M);
+
+    
+    //TODO : clean this up a bit, bad coding
+    const float temp[4][4] = {0};
+
+    memcpy(temp, M, sizeof(float) * 4 * 4);
+    multMatrixMatrix(X, temp, M);
+
+  
 
 }
 

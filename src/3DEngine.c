@@ -25,13 +25,24 @@ int main(void){
 
     float projectionMatrix[4][4];
     float rotationMatrix[4][4];
+    float matrix[4][4];
+
+    createRotationMatrix((vec3){0.0f, 30.0f, 45.0f}, rotationMatrix);
+
     createProjectionMatrix(cam, projectionMatrix);
-
+    multMeshMatrix(rotationMatrix, Cube);
+    
     //offset into screen
-    translateMesh((vec3){0, 0.0f, 3.0f}, Cube);
-
+    translateMesh((vec3){0.0f, 0.0f, 3.0f}, Cube);
+    //move mesh
+    translateMesh((vec3){-0.5f, -0.5f, 0.0f}, Cube);
 
     multMeshMatrix(projectionMatrix, Cube);
+
+    // multMatrixMatrix( rotationMatrix,projectionMatrix, matrix);
+
+    // multMeshMatrix(matrix, Cube);    
+
 
     //scale into view
     translateMesh((vec3){1.0f, 1.0f, 0.0f}, Cube);

@@ -5,7 +5,7 @@
 #include "../camera/camera.h"
 
 //MATH
-void multMatixMatrix(float m1[4][4], float m2[4][4], float o[4][4]);
+void multMatrixMatrix(float m1[4][4], float m2[4][4], float o[4][4]);
 
 void multMatrixVector(vec3 * vec, const float M[4][4]);
 

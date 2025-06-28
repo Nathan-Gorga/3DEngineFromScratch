@@ -1,13 +1,14 @@
 #include "../matrix_operations.h"
 
 
-void multMatixMatrix(float m1[4][4], float m2[4][4], float o[4][4]){
+void multMatrixMatrix(float m1[4][4], float m2[4][4], float o[4][4]){
     
+
     for(int i = 0; i < 4; i++){
         for(int j = 0; j < 4; j++){
-            o[i][j] = 0;
+            o[j][i] = 0;
             for(int k = 0; k < 4; k++){
-                o[i][j] += m1[i][k] * m2[k][j];
+                o[j][i] += m1[k][i] * m2[j][k];
             }
         }
     }
