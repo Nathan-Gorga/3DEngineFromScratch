@@ -4,7 +4,6 @@
 int mainLoop(const float elapsed_time, SDL_Renderer * renderer, const camera * cam, const mesh * input_mesh){
     
     //CLEAR SCREEN
-
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); 
     
     SDL_RenderClear(renderer);
@@ -17,60 +16,36 @@ int mainLoop(const float elapsed_time, SDL_Renderer * renderer, const camera * c
     float projectionMatrix[4][4];
 
     //CREATE ROTATION MATRIX ZX
-    createRotationMatrix((vec3){elapsed_time * 0.5f, 0.0f, elapsed_time}, rotationMatrix);
+    createRotationMatrix((vec3){elapsed_time * 0.5f, elapsed_time * 1.5f, elapsed_time}, rotationMatrix);
 
-    mesh * rotatedMesh = (mesh*)malloc(sizeof(mesh));
-
-    if(rotatedMesh == NULL) return -1; 
-    
-    rotatedMesh->size = input_mesh->size;
-    rotatedMesh->tris = (triangle*)malloc(sizeof(triangle) * rotatedMesh->size);
+    mesh * rotatedMesh = initMesh(input_mesh->size);
 
     //MULT MESH WITH ROTATION MATRIX 
     multMeshMatrix(rotationMatrix,input_mesh, rotatedMesh);
 
     //OFFSET INTO SCREEN
-    mesh * offsetMesh = (mesh*)malloc(sizeof(mesh));
-
-    if(offsetMesh == NULL) return -1; 
-    
-    offsetMesh->size = input_mesh->size;
-    offsetMesh->tris = (triangle*)malloc(sizeof(triangle) * offsetMesh->size);
+    mesh * offsetMesh = initMesh(input_mesh->size);
 
     translateMesh((vec3){4.0f, 3.0f, 4.0f}, rotatedMesh, offsetMesh);
     
-    free(rotatedMesh->tris);
-    free(rotatedMesh);
+    freeMesh(rotatedMesh);
 
     //PROJECT MESH
-
     createProjectionMatrix(cam, projectionMatrix);
 
-    mesh * projectedMesh = (mesh*)malloc(sizeof(mesh));
-
-    if(projectedMesh == NULL) return -1; 
-    
-    projectedMesh->size = input_mesh->size;
-    projectedMesh->tris = (triangle*)malloc(sizeof(triangle) * projectedMesh->size);
+    mesh * projectedMesh = initMesh(input_mesh->size);
 
     multMeshMatrix(projectionMatrix, offsetMesh, projectedMesh);
 
-    free(offsetMesh->tris);//TODO : create a free mesh function
-    free(offsetMesh);
+    freeMesh(offsetMesh);
 
     //SCALE INTO VIEW
 
-    mesh * scaledMesh = (mesh*)malloc(sizeof(mesh));
-
-    if(scaledMesh == NULL) return -1; 
-    
-    scaledMesh->size = input_mesh->size;
-    scaledMesh->tris = (triangle*)malloc(sizeof(triangle) * scaledMesh->size);
+    mesh * scaledMesh = initMesh(input_mesh->size);
 
     scaleMesh((vec3){500.0f, 500.0f, 500.0f}, projectedMesh, scaledMesh);
 
-    free(projectedMesh->tris);
-    free(projectedMesh);
+    freeMesh(projectedMesh);
 
 
     //DRAW TRIANGLES
@@ -78,8 +53,7 @@ int mainLoop(const float elapsed_time, SDL_Renderer * renderer, const camera * c
     drawMesh(scaledMesh, renderer);
     SDL_RenderPresent(renderer);
 
-    free(scaledMesh->tris);
-    free(scaledMesh);
+    freeMesh(scaledMesh);
 
     return 0;
 }

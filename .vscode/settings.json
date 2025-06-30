@@ -6,6 +6,7 @@
     "matrix_operations.h": "c",
     "shapes.h": "c",
     "global.h": "c",
-    "run.h": "c"
+    "run.h": "c",
+    "3dengine.h": "c"
   }
 }
