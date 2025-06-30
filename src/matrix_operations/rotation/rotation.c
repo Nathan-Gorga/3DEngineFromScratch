@@ -78,7 +78,7 @@ void createRotationMatrix(const vec3 rotationVector, float M[4][4]){
 
     
     //TODO : clean this up a bit, bad coding
-    const float temp[4][4] = {0};
+    float temp[4][4] = {0};
 
     memcpy(temp, M, sizeof(float) * 4 * 4);
     multMatrixMatrix(X, temp, M);

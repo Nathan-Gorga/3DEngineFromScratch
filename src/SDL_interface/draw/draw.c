@@ -12,8 +12,16 @@ static void drawTriangle(const triangle * tri, SDL_Renderer *renderer){
 }
 
 void drawMesh(mesh * mesh, SDL_Renderer *renderer){
+
+
+    triangle * temp = (triangle *)malloc(mesh->size * sizeof(triangle));
+
+    memcpy(temp, mesh->tris, mesh->size * sizeof(triangle));
+
     for (int i = 0; i < mesh->size; i++){
-        drawTriangle(&mesh->tris[i], renderer);
+        drawTriangle(&temp[i], renderer);
     }
+
+    free(temp);
 }
 

@@ -5,6 +5,7 @@
     "camera.h": "c",
     "matrix_operations.h": "c",
     "shapes.h": "c",
-    "global.h": "c"
+    "global.h": "c",
+    "run.h": "c"
   }
 }

@@ -3,6 +3,7 @@
 #include "shapes/shapes.h"
 #include "matrix_operations/matrix_operations.h"
 #include "camera/camera.h"
+#include "run/run.h"
 
 int main(void){
 
@@ -12,7 +13,11 @@ int main(void){
     }
 
     mesh * Cube = cube();
-    if(Cube == NULL){
+
+    mesh * DuplicateCube = cube();
+    
+
+    if(Cube == NULL || DuplicateCube == NULL){
         return 1;
     }
 
@@ -23,21 +28,24 @@ int main(void){
         return 1;
     }
 
-    float projectionMatrix[4][4];
-    float rotationMatrix[4][4];
-    float matrix[4][4];
-
-    createRotationMatrix((vec3){0.0f, 30.0f, 45.0f}, rotationMatrix);
-
-    createProjectionMatrix(cam, projectionMatrix);
-    multMeshMatrix(rotationMatrix, Cube);
     
-    //offset into screen
-    translateMesh((vec3){0.0f, 0.0f, 3.0f}, Cube);
-    //move mesh
-    translateMesh((vec3){-0.5f, -0.5f, 0.0f}, Cube);
 
-    multMeshMatrix(projectionMatrix, Cube);
+
+    // createProjectionMatrix(cam, projectionMatrix);
+
+    // multMeshMatrix(rotationMatrix, Cube, DuplicateCube);
+    // memcpy(Cube, DuplicateCube->tris, Cube->size * sizeof(triangle));//FIXME : this is so ugly, pls fix
+    // //offset into screen
+    // translateMesh((vec3){0.0f, 0.0f, 1.0f}, Cube, DuplicateCube);
+    // memcpy(Cube, DuplicateCube->tris, Cube->size * sizeof(triangle));//FIXME : this is so ugly, pls fix
+
+    // //move mesh
+    // translateMesh((vec3){-0.5f, -0.5f, 1.0f}, Cube, DuplicateCube);
+    // memcpy(Cube, DuplicateCube->tris, Cube->size * sizeof(triangle));//FIXME : this is so ugly, pls fix
+
+
+    // multMeshMatrix(projectionMatrix, Cube, DuplicateCube);
+    // memcpy(Cube, DuplicateCube->tris, Cube->size * sizeof(triangle));//FIXME : this is so ugly, pls fix
 
     // multMatrixMatrix( rotationMatrix,projectionMatrix, matrix);
 
@@ -45,16 +53,21 @@ int main(void){
 
 
     //scale into view
-    translateMesh((vec3){1.0f, 1.0f, 0.0f}, Cube);
-    scaleMesh((vec3){500.0f, 500.0f, 500.0f}, Cube);
+    // translateMesh((vec3){1.0f, 1.0f, 0.0f}, Cube, DuplicateCube);
+    // memcpy(Cube, DuplicateCube->tris, Cube->size * sizeof(triangle));//FIXME : this is so ugly, pls fix
 
-    drawMesh(Cube, renderer);
-    SDL_RenderPresent(renderer);
+    // scaleMesh((vec3){500.0f, 500.0f, 500.0f}, Cube, DuplicateCube);
+    // memcpy(Cube, DuplicateCube->tris, Cube->size * sizeof(triangle));//FIXME : this is so ugly, pls fix
 
+    // // drawMesh(Cube, renderer);
+    // // SDL_RenderPresent(renderer);
+    // drawMesh(DuplicateCube, renderer);
+    // SDL_RenderPresent(renderer);
+    // SDL_Delay(1000);
     
     bool running = true;
     SDL_Event event;
-
+    float time = 0.0f;
 
     while(running){
 
@@ -65,18 +78,24 @@ int main(void){
             }
         }
 
-        // SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); // black background
-        // SDL_RenderClear(renderer);
+        if(mainLoop(time, renderer, cam, Cube) == -1){
+            return 1;
+        }
 
-        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255); // white shapes
-
-        drawMesh(Cube, renderer);
-        SDL_RenderPresent(renderer);
+        time += 0.5f;
+        
         SDL_Delay(16); 
 
     }
 
     free(cam);
+
+    
+    //BUG : free(): invalid next size (fast) somewhere here
+    free(DuplicateCube->tris);
+    free(DuplicateCube);
+
+
     free(Cube->tris);
     free(Cube);
 

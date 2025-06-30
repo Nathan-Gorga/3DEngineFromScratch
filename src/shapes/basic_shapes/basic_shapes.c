@@ -2,9 +2,7 @@
 
 mesh * cube(void){
 
-    
-
-    mesh * meshCube = (mesh*)malloc(sizeof(mesh));
+    mesh * meshCube = (mesh*)malloc(sizeof(mesh));//TODO : create a init mesh function
 
     if(meshCube == NULL) 
         return NULL; 

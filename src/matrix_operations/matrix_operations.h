@@ -4,20 +4,24 @@
 #include "../global.h"
 #include "../camera/camera.h"
 
+
+//TODO : make a function that takes in all motion vectors and combines them in always the correct order
+
+
 //MATH
-void multMatrixMatrix(float m1[4][4], float m2[4][4], float o[4][4]);
+void multMatrixMatrix(const float m1[4][4],const float m2[4][4], float o[4][4]);
 
-void multMatrixVector(vec3 * vec, const float M[4][4]);
+void multMatrixVector(const vec3 *i, vec3 *o,const float m[4][4]);
 
-void multMatrixConstant(float m[4][4], const float c);
+void multMatrixConstant(const float I[4][4], float O[4][4], const float c);
 
-void scaleMesh(const vec3 vec, mesh * mesh);
+void scaleMesh(const vec3 vec, const mesh * I, mesh * O);
 
 float radiansToDegrees(float radians);
 
 float degreesToRadians(float degrees);
 
-void multMeshMatrix(const float M[4][4], mesh * mesh);
+void multMeshMatrix(const float M[4][4], const mesh * I, mesh * O);
 
 //PROJECTION
 void createProjectionMatrix(const camera *cam, float M[4][4]);
@@ -26,6 +30,6 @@ void createProjectionMatrix(const camera *cam, float M[4][4]);
 void createRotationMatrix(const vec3 rotationVector, float M[4][4]);
 
 //TRANSLATION
-void translateMesh(const vec3 vec, mesh * mesh);
+void translateMesh(const vec3 vec, const mesh * I, mesh * O);
 
 #endif
