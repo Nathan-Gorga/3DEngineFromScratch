@@ -1,4 +1,4 @@
-
+#TODO : make a better, cleaner makefile
 CC = clang
 CFLAGS = -std=c99 -Wall -Wpedantic
 

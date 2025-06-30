@@ -1,5 +1,5 @@
-#ifndef GLOBACL_H
-#define GLOBACL_H
+#ifndef GLOBAL_H
+#define GLOBAL_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -23,7 +23,6 @@ typedef struct mesh{
 	int size;
 	triangle * tris;
 }mesh;
-
 
 
 #endif
