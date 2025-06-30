@@ -42,19 +42,9 @@ mesh * cube(void){
 
 mesh * tetrahedron(void){
 
-    mesh * meshTetrahedron = (mesh*)malloc(sizeof(mesh));
+    mesh * meshTetrahedron = initMesh(4);
 
-    if(meshTetrahedron == NULL) 
-        return NULL;
-
-    meshTetrahedron->size = 4;
-
-    meshTetrahedron->tris = (triangle*)malloc(sizeof(triangle) * 4);
-
-    if(meshTetrahedron->tris == NULL){
-        free(meshTetrahedron);
-        return NULL;
-    } 
+    if(meshTetrahedron == NULL) return NULL;
 
     triangle temp[4] = {
         { (vec3){0.0f, 0.0f, 0.0f},    (vec3){1.0f, 0.0f, 0.0f},    (vec3){0.5f, 0.0f, 1.0f} },
@@ -69,6 +59,5 @@ mesh * tetrahedron(void){
     memcpy(meshTetrahedron->tris, temp, sizeof(triangle) * 4);
 
     return meshTetrahedron;
-
 }
 
