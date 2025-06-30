@@ -3,7 +3,6 @@
 
 void multMatrixMatrix(const float m1[4][4], const float m2[4][4], float o[4][4]){
     
-
     for(int i = 0; i < 4; i++){
         for(int j = 0; j < 4; j++){
             o[j][i] = 0;
@@ -16,7 +15,6 @@ void multMatrixMatrix(const float m1[4][4], const float m2[4][4], float o[4][4])
 
 void multMatrixVector(const vec3 *i, vec3 *o,const float m[4][4])
 {
-
     const float x = i->x;
     const float y = i->y;
     const float z = i->z;

@@ -74,17 +74,11 @@ void createRotationMatrix(const vec3 rotationVector, float M[4][4]){
 
     // the order of multiplication MUST be Z * Y * X
 
-    multMatrixMatrix(Z, Y, M);
-
-    
-    //TODO : clean this up a bit, bad coding
     float temp[4][4] = {0};
 
-    memcpy(temp, M, sizeof(float) * 4 * 4);
-    multMatrixMatrix(X, temp, M);
-
-  
-
+    multMatrixMatrix(Z, Y, temp);
+    
+    multMatrixMatrix(temp, X, M);
 }
 
 
