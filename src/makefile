@@ -1,57 +1,48 @@
-#TODO : make a better, cleaner makefile
+# Compiler and flags
 CC = clang
 CFLAGS = -std=c99 -Wall -Wpedantic
 
-3DEngine : main.o shapes.o draw.o init.o matrix_math.o matrix_projection.o matrix_translation.o camera.o matrix_rotation.o run.o fund.o
-	$(CC) main.o shapes.o draw.o init.o matrix_math.o matrix_projection.o matrix_translation.o camera.o matrix_rotation.o run.o fund.o -lm -lSDL2 -o 3DEngine
-	make clean
-	./3DEngine
+# Directories
+SRC_DIRS = . shapes/basic_shapes SDL_interface/draw SDL_interface/init \
+           matrix_operations/math matrix_operations/projection \
+           matrix_operations/translation matrix_operations/rotation \
+           camera run FUNDAMENTAL_OP
 
+# Source files
+SRCS = \
+  3DEngine.c \
+  shapes/basic_shapes/basic_shapes.c \
+  SDL_interface/draw/draw.c \
+  SDL_interface/init/init.c \
+  matrix_operations/math/math.c \
+  matrix_operations/projection/projection.c \
+  matrix_operations/translation/translation.c \
+  matrix_operations/rotation/rotation.c \
+  camera/camera.c \
+  run/run.c \
+  FUNDAMENTAL_OP/fundamental_op.c
 
-main.o : 3DEngine.c
-	$(CC) $(CFLAGS) -c 3DEngine.c -o main.o 
+# Object files (replace .c with .o)
+OBJS = $(SRCS:.c=.o)
 
-shapes.o : shapes/basic_shapes/basic_shapes.c
-	$(CC) $(CFLAGS) -c shapes/basic_shapes/basic_shapes.c -o shapes.o
+# Output binary
+TARGET = 3DEngine
 
+# Default target
+all: $(TARGET)
+	@$(MAKE) clean
+	@./$(TARGET)
 
+# Link step
+$(TARGET): $(OBJS)
+	$(CC) $(OBJS) -lm -lSDL2 -o $@
+	@echo "Build complete."
+	
 
-draw.o : SDL_interface/draw/draw.c 
-	$(CC) $(CFLAGS) -c SDL_interface/draw/draw.c -o draw.o
+# Pattern rule for compiling .c to .o
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
-init.o : SDL_interface/init/init.c
-	$(CC) $(CFLAGS) -c SDL_interface/init/init.c -o init.o
-
-
-
-matrix_math.o : matrix_operations/math/math.c
-	$(CC) $(CFLAGS) -c matrix_operations/math/math.c -o matrix_math.o
-
-matrix_projection.o : matrix_operations/projection/projection.c
-	$(CC) $(CFLAGS) -c matrix_operations/projection/projection.c -o matrix_projection.o
-
-
-matrix_translation.o : matrix_operations/translation/translation.c
-	$(CC) $(CFLAGS) -c matrix_operations/translation/translation.c -o matrix_translation.o
-
-matrix_rotation.o : matrix_operations/rotation/rotation.c
-	$(CC) $(CFLAGS) -c matrix_operations/rotation/rotation.c -o matrix_rotation.o
-
-
-camera.o : camera/camera.c
-	$(CC) $(CFLAGS) -c camera/camera.c -o camera.o
-
-
-run.o : run/run.c
-	$(CC) $(CFLAGS) -c run/run.c -o run.o
-
-fund.o : FUNDAMENTAL_OP/fundamental_op.c
-	$(CC) $(CFLAGS) -c FUNDAMENTAL_OP/fundamental_op.c -o fund.o
-
-
+# Clean up
 clean:
-	rm -f *.o 
-
-
-
-
+	rm -f $(OBJS)
