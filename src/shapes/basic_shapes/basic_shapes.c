@@ -2,19 +2,9 @@
 
 mesh * cube(void){
 
-    mesh * meshCube = (mesh*)malloc(sizeof(mesh));//TODO : create a init mesh function
+    mesh * meshCube = initMesh(12);
 
-    if(meshCube == NULL) 
-        return NULL; 
-    
-
-    meshCube->size = 12;
-    meshCube->tris = (triangle*)malloc(sizeof(triangle) * 12);
-
-    if(meshCube->tris == NULL){
-        free(meshCube);
-        return NULL;
-    } 
+    if(meshCube == NULL) return NULL;
 
     triangle temp[12] = {
         

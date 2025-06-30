@@ -7,6 +7,7 @@
 #include "matrix_operations/matrix_operations.h"
 #include "camera/camera.h"
 #include "run/run.h"
+#include "FUNDAMENTAL_OP/fundamental_op.h"
 
 #endif
 

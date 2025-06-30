@@ -35,9 +35,7 @@ int main(void){
     }
 
     free(cam);
-
-    free(Cube->tris);
-    free(Cube);
+    freeMesh(Cube);
 
     return 0;
 }
