@@ -2,7 +2,7 @@
 #define SDL_INTERFACE_H
 
 #include "../global.h"
-
+#include "../matrix_operations/matrix_operations.h"
 //INIT
 SDL_Renderer * initRenderer(void);
 

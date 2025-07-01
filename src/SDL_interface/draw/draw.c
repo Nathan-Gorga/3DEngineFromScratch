@@ -13,9 +13,24 @@ static void drawTriangle(const triangle * tri, SDL_Renderer *renderer){
 
 void drawMesh(mesh * mesh, SDL_Renderer *renderer){
 
+    vec3 normal, line1, line2;
+    
     for (int i = 0; i < mesh->size; i++){
     
-        drawTriangle(&mesh->tris[i], renderer);
+        triangle tri = mesh->tris[i];
+
+        line1.x = tri.p[1].x - tri.p[0].x;
+        line1.y = tri.p[1].y - tri.p[0].y;
+        line1.z = tri.p[1].z - tri.p[0].z;
+    
+        line2.x = tri.p[2].x - tri.p[0].x;
+        line2.y = tri.p[2].y - tri.p[0].y;
+        line2.z = tri.p[2].z - tri.p[0].z;
+    
+        normal = normalize(line1, line2);
+        
+        if(normal.z < 0.0f)
+            drawTriangle(&mesh->tris[i], renderer);
         
     }
 

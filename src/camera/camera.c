@@ -10,7 +10,7 @@ camera * initCamera(void){
     temp->rotation = (vec3){0.0f, 0.0f, 0.0f};
     temp->zfar = Z_FAR;
     temp->znear = Z_NEAR;
-    temp->theta = 90.0f;
+    temp->theta = 60.0f;
 
     return temp;
 }

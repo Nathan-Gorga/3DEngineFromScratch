@@ -77,3 +77,12 @@ void multMeshMatrix(const float M[4][4], const mesh * I, mesh * O){
         multTriangleMatrix(&I->tris[i], &O->tris[i], M);
     }
 }
+
+
+vec3 normalize(const vec3 vec1, const vec3 vec2){
+    const float Nx = vec1.y * vec2.z - vec1.z * vec2.y;
+    const float Ny = vec1.z * vec2.x - vec1.x * vec2.z;
+    const float Nz = vec1.x * vec2.y - vec1.y * vec2.x;
+
+    return (vec3){Nx, Ny, Nz};
+}

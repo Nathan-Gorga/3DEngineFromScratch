@@ -32,4 +32,6 @@ void createRotationMatrix(const vec3 rotationVector, float M[4][4]);
 //TRANSLATION
 void translateMesh(const vec3 vec, const mesh * I, mesh * O);
 
+vec3 normalize(const vec3 vec1, const vec3 vec2);
+
 #endif

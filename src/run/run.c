@@ -26,35 +26,38 @@ int mainLoop(const float elapsed_time, SDL_Renderer * renderer, const camera * c
     //OFFSET INTO SCREEN
     mesh * offsetMesh = initMesh(input_mesh->size);
 
-    translateMesh((vec3){4.0f, 3.0f, 4.0f}, rotatedMesh, offsetMesh);
+    translateMesh((vec3){4.0f, 3.0f, 5.0f}, rotatedMesh, offsetMesh);
     
     freeMesh(rotatedMesh);
 
-    //PROJECT MESH
-    createProjectionMatrix(cam, projectionMatrix);
+    //NORMALIZE TRIANGLES
 
-    mesh * projectedMesh = initMesh(input_mesh->size);
+            
+        //PROJECT MESH
+        createProjectionMatrix(cam, projectionMatrix);
 
-    multMeshMatrix(projectionMatrix, offsetMesh, projectedMesh);
+        mesh * projectedMesh = initMesh(input_mesh->size);
 
-    freeMesh(offsetMesh);
-
-    //SCALE INTO VIEW
-
-    mesh * scaledMesh = initMesh(input_mesh->size);
-
-    scaleMesh((vec3){500.0f, 500.0f, 500.0f}, projectedMesh, scaledMesh);
-
-    freeMesh(projectedMesh);
-
-
-    //DRAW TRIANGLES
-
-    drawMesh(scaledMesh, renderer);
-    SDL_RenderPresent(renderer);
-
-    freeMesh(scaledMesh);
-
+        multMeshMatrix(projectionMatrix, offsetMesh, projectedMesh);
+        
+        freeMesh(offsetMesh);
+        
+        //SCALE INTO VIEW
+        
+        mesh * scaledMesh = initMesh(input_mesh->size);
+        
+        scaleMesh((vec3){300.0f, 300.0f, 300.0f}, projectedMesh, scaledMesh);
+        
+        freeMesh(projectedMesh);
+        
+        
+        //DRAW TRIANGLES
+        
+        drawMesh(scaledMesh, renderer);
+        SDL_RenderPresent(renderer);
+        
+        freeMesh(scaledMesh);
+    
     return 0;
 }
 
