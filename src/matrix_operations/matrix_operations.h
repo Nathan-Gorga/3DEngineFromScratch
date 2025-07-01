@@ -34,4 +34,7 @@ void translateMesh(const vec3 vec, const mesh * I, mesh * O);
 
 vec3 normalize(const vec3 vec1, const vec3 vec2);
 
+inline int dotProduct(const vec3 vec1, const vec3 vec2);
+
+
 #endif
