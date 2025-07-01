@@ -53,7 +53,7 @@ int mainLoop(const float elapsed_time, SDL_Renderer * renderer, const camera * c
         
         //DRAW TRIANGLES
         
-        drawMesh(scaledMesh, renderer);
+        drawFilledMesh(scaledMesh, renderer);
         SDL_RenderPresent(renderer);
         
         freeMesh(scaledMesh);

@@ -7,7 +7,9 @@
 SDL_Renderer * initRenderer(void);
 
 //DRAW
-void drawMesh(mesh * mesh, SDL_Renderer *renderer);
+void drawWireMesh(mesh * mesh, SDL_Renderer *renderer);
+
+void drawFilledMesh(mesh * mesh, SDL_Renderer * renderer);
 
 
 #endif

@@ -7,6 +7,7 @@
 #include <stdbool.h>
 #include <math.h>
 #include <SDL2/SDL.h>
+#include <SDL2/SDL2_gfxPrimitives.h>
 
 #define WINDOW_WIDTH 1200
 #define WINDOW_HEIGHT 1000

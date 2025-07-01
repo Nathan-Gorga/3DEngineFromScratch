@@ -35,7 +35,7 @@ all: $(TARGET)
 
 # Link step
 $(TARGET): $(OBJS)
-	$(CC) $(OBJS) -lm -lSDL2 -o $@
+	$(CC) $(OBJS) -lm -lSDL2 -lSDL2_gfx -o $@
 	@echo "Build complete."
 	
 
